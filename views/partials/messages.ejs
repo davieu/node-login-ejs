@@ -9,3 +9,23 @@
       </div>
   <% }); %>
 <% } %>
+
+<% // The way this success message from the global midleware variable works is that if it is not there then it will just be an empty string %>
+<% if (success_msg != '') { %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <%= success_msg %>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+<% } %>
+
+<% // The way this error message from the global midleware variable works is that if it is not there then it will just be an empty string %>
+<% if (error_msg != '') { %>
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <%= error_msg %>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+<% } %>
