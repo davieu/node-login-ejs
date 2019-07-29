@@ -7,7 +7,7 @@ const passport = require('passport');
 const User = require('../models/User')
 
 // Login Page
-router.get('/login', (req, res) => res.render('login', {link: "sdfsdf"}));
+router.get('/login', (req, res) => res.render('login'));
 
 // Register Page
 router.get('/register', (req, res) => res.render('register'));
@@ -76,6 +76,7 @@ router.post('/register', (req, res) => {
                 .then(user => {
                   // req.flash is the middleware that we created to create the flash message
                   req.flash('success_msg', 'You are now registered and can log in');
+                  // a flash for the email to inject into the login page when new user registers
                   req.flash('email', user.email)
                   res.redirect('/users/login');
                 })
@@ -94,5 +95,13 @@ router.post('/login', (req, res, next) => {
     failureFlash: true
   })(req, res, next);
 });
+
+// Logout Handler
+router.get('/logout', (req, res) => {
+  //logout() is a method from passport middleware
+  req.logout()
+  req.flash('success_msg', 'You are logged out')
+  res.redirect('/users/login')
+})
 
 module.exports = router;
