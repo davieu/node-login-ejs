@@ -1,15 +1,19 @@
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
-const cors = require('cors');
+// const cors = require('cors');
 const flash = require('connect-flash');
 const session = require('express-session');
+const passport = require('passport');
+
+const app = express();
+// app.use(cors());
+
+// Passport config
+require('./config/passport')(passport);
 
 // DB config
 const keys = require('./config/keys');
-
-const app = express();
-app.use(cors());
 
 // Connect to Mongo
 mongoose.connect(keys.mongoURI, { useNewUrlParser: true })
@@ -23,15 +27,19 @@ app.use(expressLayouts);
 app.set('view engine', 'ejs');
 
 // Bodyparser
-app.use(express.json());
+// app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Express Session middleware
+// Express Session Middleware
 app.use(session({
   secret: 'secret',
   resave: true,
   saveUninitialized: true
 }));
+
+// Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Connect flash
 app.use(flash());
@@ -41,6 +49,7 @@ app.use((req, res, next) => {
   // set global variables by using res.locals
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
   next();
 });
 
