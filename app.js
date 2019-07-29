@@ -1,7 +1,7 @@
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
-// const cors = require('cors');
+const cors = require('cors');
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
@@ -27,7 +27,7 @@ app.use(expressLayouts);
 app.set('view engine', 'ejs');
 
 // Bodyparser
-// app.use(express.json());
+app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Express Session Middleware
