@@ -14,11 +14,11 @@ router.get('/register', (req, res) => res.render('register'));
 
 // Register Handle
 router.post('/register', (req, res) => {
-  const { name, email, password, password2 } = req.body;
+  const { username, firstName, lastName, age, email, password, password2 } = req.body;
   let errors = [];
 
   // Check required fields
-  if (!name || !email || !password || !password2) {
+  if (!username || !firstName || !lastName || !age || !email || !password || !password2) {
     errors.push({ msg: 'Please fill in all fields' })
   }
 
@@ -35,30 +35,56 @@ router.post('/register', (req, res) => {
   if (errors.length > 0) {
     res.render('register', {
       errors, 
-      name,
+      username,
+      firstName,
+      lastName,
+      age,
       email, 
       password,
       password2
     })
   } else {
+
     // Validation passes
+    let checkUsername = false
+
+    // check if username exists and flags if username already exists
+    User.findOne({ username: username })
+      .then(user => {
+        if(user) {
+          checkUsername = true
+        }
+      })
+      .catch(err => console.log(err));
+    
+    // Checks if email exists
     User.findOne({ email: email })
       .then(user => {
         if(user) {
-          // User exists
+          // username exists
+          if(checkUsername) {
+            errors.push({ msg: 'Username is already in use' })
+          }
+          // email exists
           errors.push({ msg: 'Email is already registered' });
           res.render('register', {
             errors, 
-            name,
+            username,
+            firstName,
+            lastName,
+            age,
             email, 
             password,
             password2
           });
         } else {
           const newUser = new User({
-            name, 
+            username,
+            firstName,
+            lastName,
+            age,
             email, 
-            password
+            password,
           });
           
           // Hash Password
@@ -105,3 +131,20 @@ router.get('/logout', (req, res) => {
 })
 
 module.exports = router;
+
+// User.findOne({ username: username })
+// .then(user => {
+//   if(user) {
+//     errors.push({ msg: 'Username is already in use' })
+//     res.render('register', {
+//       errors, 
+//       username,
+//       firstName,
+//       lastName,
+//       age,
+//       email, 
+//       password,
+//       password2
+//     })
+//   }
+// })

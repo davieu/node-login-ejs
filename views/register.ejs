@@ -7,14 +7,52 @@
       <% include ./partials/messages %>
       <form action="/users/register" method="POST">
         <div class="form-group">
-          <label for="name">Name</label>
+          <label for="username">Username</label>
           <input
             type="name"
-            id="name"
-            name="name"
+            id="username"
+            name="username"
             class="form-control"
-            placeholder="Enter Name"
-            value="<%= typeof name != 'undefined' ? name : '' %>"
+            placeholder="Enter Username"
+            value="<%= typeof username != 'undefined' ? username : '' %>"
+          />
+        </div>
+        <div class="row">
+            <div class="col-md-6 m-auto">
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input
+            type="name"
+            id="first-name"
+            name="firstName"
+            class="form-control"
+            placeholder="Enter First Name"
+            value="<%= typeof firstName != 'undefined' ? firstName : '' %>"
+          />
+        </div></div>
+        <div class="col-md-6 m-auto">
+        <div class="form-group">
+          <label for="name">Last Name</label>
+          <input
+            type="name"
+            id="last-name"
+            name="lastName"
+            class="form-control"
+            placeholder="Enter Last Name"
+            value="<%= typeof lastName != 'undefined' ? lastName : '' %>"
+          />
+        </div>
+        </div></div>
+        <div class="form-group">
+          <label for="age">Age</label>
+          <input
+            type="number"
+            id="age"
+            name="age"
+            min="18"
+            class="form-control"
+            placeholder="Enter Age"
+            value="<%= typeof age != 'undefined' ? age : '' %>"
           />
         </div>
         <div class="form-group">

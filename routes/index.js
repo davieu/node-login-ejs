@@ -9,7 +9,11 @@ router.get('/', (req, res) => res.render('welcome'));
 router.get('/dashboard', ensureAuthenticated, (req, res) => 
   // When logged in you have access to req.user
   res.render('dashboard', {
-    name: req.user.name
+    username: req.user.username,
+    firstName: req.user.firstName,
+    lastName: req.user.lastName,
+    age: req.user.age,
+    email: req.user.email
   }));
 
 module.exports = router;
