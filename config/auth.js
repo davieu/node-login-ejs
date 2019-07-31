@@ -3,7 +3,7 @@ module.exports = {
   ensureAuthenticated: (req, res, next) => {
     // isAuthenticated is a method for req
     if(req.isAuthenticated()) {
-      console.log(req.user)
+      // console.log(req.user)
       return next();
     }
     req.flash('error_msg', 'Please log in to view this resource');

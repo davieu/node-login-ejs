@@ -7,7 +7,7 @@ const session = require('express-session');
 const passport = require('passport');
 
 const app = express();
-// app.use(cors());
+app.use(cors());
 
 // Passport config
 require('./config/passport')(passport);
@@ -57,6 +57,7 @@ app.use((req, res, next) => {
 // Routes
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
+app.use('/posts', require('./routes/posts'));
 
 app.listen(PORT, () => console.log(`Server started on ${PORT}`));
 

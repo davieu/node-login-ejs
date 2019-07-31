@@ -13,7 +13,11 @@ router.get('/dashboard', ensureAuthenticated, (req, res) =>
     firstName: req.user.firstName,
     lastName: req.user.lastName,
     age: req.user.age,
-    email: req.user.email
+    email: req.user.email,
+    dateUpdated: req.user.dateUpdated,
+    admin: req.user.admin,
+    dateCreated: req.user.dateCreated,
+    lastActive: req.user.lastActive
   }));
 
 module.exports = router;
